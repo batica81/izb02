@@ -90,3 +90,14 @@ fos_rest:
         view_response_listener: 'force'
         formats:
             json: true
+
+#swagger
+nelmio_api_doc:
+    routes:
+        path_patterns: # an array of regexps
+            - ^/api
+    documentation:
+        info:
+            title: My App
+            description: This is an awesome app!
+            version: 1.0.0
