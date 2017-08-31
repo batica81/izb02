@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Voja
- * Date: 29-Aug-17
- * Time: 23:46
+ * User: voja
+ * Date: 31.8.17.
+ * Time: 15.53
  */
 
 namespace AppBundle\Controller;
@@ -15,43 +15,42 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
-use AppBundle\Entity\TestUser;
+use AppBundle\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 
-
-class TestUserController extends FOSRestController
+class UserController extends FOSRestController
 {
     /**
-     * @Rest\Get("/api/testuser")
+     * @Rest\Get("/api/user")
      */
-    public function getAction()
+    public function showAllUsers()
     {
-        $restresult = $this->getDoctrine()->getRepository('AppBundle:TestUser')->findAll();
+        $restresult = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         if ($restresult === null) {
-            return new View("there are no users exist", Response::HTTP_NOT_FOUND);
+            return new View("There are no users", Response::HTTP_NOT_FOUND);
         }
         return $restresult;
     }
 
     /**
-     * @Rest\Get("/api/testuser/{id}")
+     * @Rest\Get("/api/user/{id}")
      */
-    public function idAction($id)
+    public function showUser($id)
     {
-        $singleresult = $this->getDoctrine()->getRepository('AppBundle:TestUser')->find($id);
+        $singleresult = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
         if ($singleresult === null) {
-            return new View("user not found", Response::HTTP_NOT_FOUND);
+            return new View("User not found", Response::HTTP_NOT_FOUND);
         }
         return $singleresult;
     }
 
     /**
-     * @Rest\Post("/api/testuser")
+     * @Rest\Post("/api/user")
      */
-    public function postAction(Request $request)
+    public function createUser(Request $request)
     {
-        $data = new TestUser;
+        $data = new User;
         $name = $request->get('name');
         $role = $request->get('role');
         if(empty($name) || empty($role))
@@ -67,15 +66,15 @@ class TestUserController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/api/testuser/{id}")
+     * @Rest\Put("/api/user/{id}")
      */
-    public function updateAction($id,Request $request)
+    public function updateUser($id,Request $request)
     {
-        $data = new TestUser;
+        $data = new User;
         $name = $request->get('name');
         $role = $request->get('role');
         $sn = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('AppBundle:TestUser')->find($id);
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
         if (empty($user)) {
             return new View("user not found", Response::HTTP_NOT_FOUND);
         }
@@ -99,13 +98,13 @@ class TestUserController extends FOSRestController
     }
 
     /**
-     * @Rest\Delete("/api/testuser/{id}")
+     * @Rest\Delete("/api/user/{id}")
      */
-    public function deleteAction($id)
+    public function deleteUser($id)
     {
-        $data = new TestUser;
+        $data = new User;
         $sn = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('AppBundle:TestUser')->find($id);
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
         if (empty($user)) {
             return new View("user not found", Response::HTTP_NOT_FOUND);
         }
@@ -116,4 +115,3 @@ class TestUserController extends FOSRestController
         return new View("deleted successfully", Response::HTTP_OK);
     }
 }
-
