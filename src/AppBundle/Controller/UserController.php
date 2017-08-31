@@ -51,14 +51,19 @@ class UserController extends FOSRestController
     public function createUser(Request $request)
     {
         $data = new User;
-        $name = $request->get('name');
-        $role = $request->get('role');
-        if(empty($name) || empty($role))
+        $email = $request->get('email');
+        $firstName = $request->get('firstName');
+        $lastName = $request->get('lastName');
+        $password = $request->get('pass');
+        if(empty($firstName) || empty($lastName) || empty($email) || empty($password))
         {
             return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
         }
-        $data->setName($name);
-        $data->setRole($role);
+        $data->setEmail($email);
+        $data->setFirstName($firstName);
+        $data->setLastName($lastName);
+        $data->setPassword($password);
+        $data->setHashedPassword(md5($password));
         $em = $this->getDoctrine()->getManager();
         $em->persist($data);
         $em->flush();
@@ -76,7 +81,7 @@ class UserController extends FOSRestController
         $sn = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
         if (empty($user)) {
-            return new View("user not found", Response::HTTP_NOT_FOUND);
+            return new View("User not found", Response::HTTP_NOT_FOUND);
         }
         elseif(!empty($name) && !empty($role)){
             $user->setName($name);
@@ -103,15 +108,21 @@ class UserController extends FOSRestController
     public function deleteUser($id)
     {
         $data = new User;
+        $currentUserId = 1;
         $sn = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
         if (empty($user)) {
-            return new View("user not found", Response::HTTP_NOT_FOUND);
+            return new View("User not found", Response::HTTP_NOT_FOUND);
         }
-        else {
+        elseif ($user->getId() == $currentUserId) {
             $sn->remove($user);
             $sn->flush();
+            return new View("User deleted successfully", Response::HTTP_OK);
         }
-        return new View("deleted successfully", Response::HTTP_OK);
+        return new View("Unathorized", Response::HTTP_FORBIDDEN);
+
     }
 }
+
+//TODO: Cascade delete in mysql
+//TODO: updateUser

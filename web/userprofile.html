@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/js.cookie.js"></script>
+    <script src="js/util.js"> </script>
+
+    <title>Welcome to Scripttic Challenge!</title>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Scripttic Challenge</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="http://www.scripttic.com:8000/swagger">Specification</a></li>
+                    <li><a class="clanci" href="article.html">Articles</a></li>
+                    <li><a class="korisnik" href="userprofile.html">User Profile</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="login" href="login.html">Login</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+
+
+    <div class="content">
+
+        <div class="user_profile col-lg-6 col-lg-offset-3 col-sm-10 col-sm-offset-1 col-xs-12" style="display: none">
+            <div class="card hovercard">
+                <div class="card-background">
+                    <img class="card-bkimg" alt="backgroundImage" src="images/2.jpg">
+                </div>
+                <div class="useravatar">
+                    <img alt="userImage" src="images/2.jpg">
+                </div>
+                <div class="card-info"> <span class="card-title">User not logged in.</span>
+
+                </div>
+            </div>
+            <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        <div class="hidden-xs">User details</div>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                        <div class="hidden-xs">Change details</div>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <div class="hidden-xs">Change password</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tab1">
+                        <ul class="user_details">
+                            <li>Name: <span id="detail_name"></span></li>
+                            <li>Lastname: <span id="detail_lastname"></span></li>
+                            <li>E-mail: <span id="detail_email"></span></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="tab2">
+                        <h3>Enter new user deatils</h3>
+                        <form>
+                            <input type="text" class="input-sm" name="name" id="firstname" placeholder="Name">
+                            <input type="text" class="input-sm" name="lastname" id="lastname" placeholder="Lastname">
+                            <button class="update_details btn btn-danger">Save changes</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade in" id="tab3">
+                        <h3>Change your password</h3>
+                        <form>
+                            <input type="password" class="input-sm" name="oldpass" id="oldpass" placeholder="Enter old password">
+                            <input type="password" class="input-sm" name="newpass" id="newpass" placeholder="Enter new password">
+                            <button class="change_password btn btn-danger">Change password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+
+                var currentUser = JSON.parse(sessionStorage.getItem('user'));
+
+                if (currentUser) {
+                    $('.card-title').html(currentUser.firstName);
+                    $('#detail_name').append(currentUser.firstName);
+                    $('#detail_lastname').append(currentUser.lastName);
+                    $('#detail_email').append(currentUser.email);
+
+                    $('.update_details').click(function (event) {
+                        event.preventDefault();
+                        updateUser($('#firstname').val(), $('#lastname').val());
+                    });
+
+                    $('.change_password').click(function (event) {
+                        event.preventDefault();
+                        changePass($('#oldpass').val(), $('#newpass').val());
+                    });
+
+                 } else {
+                    $('.user_profile').html('<h2>User not logged in.</h2>');
+                }
+
+                $('.user_profile').show();
+
+                // User profile page css
+                $(".btn-pref .btn").click(function () {
+                    $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
+                    $(this).removeClass("btn-default").addClass("btn-primary");
+                });
+            });
+        </script>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+
+
+
+
+

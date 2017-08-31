@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/js.cookie.js"></script>
+    <script src="js/util.js"> </script>
+
+    <title>Welcome to Scripttic Challenge!</title>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Scripttic Challenge</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="http://www.scripttic.com:8000/swagger">Specification</a></li>
+                    <li><a class="clanci" href="article.html">Articles</a></li>
+                    <li><a class="korisnik" href="userprofile.html">User Profile</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="login" href="login.html">Login</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+
+    <div class="content">
+
+        <h2>Frontend application test</h2>
+
+        <h3>Short description</h3>
+
+        <p>Create a responsive web frontend application for managing the articles and comments.
+            Registered user can post Artiles (artiles are up to 255 characters) and post comments on their and
+            someone else's articles (comments are up to 255 characters).</p>
+
+        <h2>Specification</h2>
+
+        <h3>General requirements</h3>
+
+        <ol>
+            <li>Responsive UI, based on Bootstrap 3</li>
+            <li>App should support Desktop and mobile at least</li>
+            <li>App should consume specified API</li>
+            <li>Please make frontend user registration form with frontend form validation.</li>
+        </ol>
+
+        <h3>User stories</h3>
+
+        <ol>
+            <li>Visitors (everyone) can list all articles and comments on them. They can not post newarticles or comment.</li>
+            <li>Visitors can register can register and become Users (i.e. Posters).</li>
+            <li>Posters can make new articles and comment on articles.</li>
+        </ol>
+
+        <h3>BONUS user stories</h3>
+        <ol>
+            <li>Posters can change or delete their Articles or Comments.</li>
+            <li>Posters can change their profile information.</li>
+            <li>Any improvement you decide it is beneficial for UX.</li>
+        </ol>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/js.cookie.js"></script>
+    <script src="js/util.js"> </script>
+
+    <title>Welcome to Scripttic Challenge!</title>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Scripttic Challenge</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="http://www.scripttic.com:8000/swagger">Specification</a></li>
+                    <li><a class="clanci" href="article.html">Articles</a></li>
+                    <li><a class="korisnik" href="userprofile.html">User Profile</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="login" href="login.html">Login</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+
+    <div class="content">
+
+        <div class="login-page" style="display: none;">
+            <div class="form">
+                <form class="register-form">
+                    <input type="email" placeholder="E-mail" id="register_email" required autofocus/>
+                    <input type="password" class="form-control" placeholder="Password" id="register_password" name="_password" required>
+                    <input type="text" class="form-control" placeholder="Firstname" id="register_firstname" name="_firstname" value="" required>
+                    <input type="text" class="form-control" placeholder="Lastname" id="register_lastname" name="_lastname" value="" required>
+                    <button id="register_btn">create</button>
+                    <p class="message">Already registered? <a href="#">Sign In</a></p>
+                </form>
+                <form class="login-form">
+                    <input type="text" class="form-control" id="username" placeholder="E-mail" name="_username" value="" required>
+                    <input type="password" class="form-control" placeholder="Password" id="password" name="_password" required>
+                    <button id="login_btn">login</button>
+                    <p class="message">Not registered? <a href="#">Create an account</a></p>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+
+                var currentUser = JSON.parse(sessionStorage.getItem('user'));
+
+                if (currentUser) {
+
+                    $('.login-page').html('<h3>Logged in as: ' + currentUser.firstName + ' <a class="logout_btn" href="#">Logout</a></h3>');
+
+                    $('.logout_btn').click(function () {
+                        logout();
+                        location.reload();
+                    });
+                }
+
+                $('.login-page').show();
+
+                $('#login_btn').click(function (event) {
+                    event.preventDefault();
+                    login($('#username').val(), $('#password').val());
+                    getUserData();
+                });
+
+                $('#register_btn').click(function (event) {
+                    event.preventDefault();
+                    addNewUser($('#register_email').val(), $('#register_firstname').val(), $('#register_lastname').val(), $('#register_password').val());
+                });
+
+                // Make login slide
+                $('.message a').click(function(){
+                    $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+                });
+
+            });
+        </script>
+
+    </div>
+</div>
+
+</body>
+</html>
