@@ -327,7 +327,7 @@ function displayAllArticles (allArticles) {
                 '<div class="article_title" contentEditable="false">' + allArticles[i].title + '</div>' +
                 '<div class="article_body" contentEditable="false">' +  allArticles[i].body + '</div>' +
                 '<span class="badge">Posted ' + moment(allArticles[i].datetime).format("LLL") + '</span> by' +
-                '<span><a href="#"> ' + allArticles[i].poster + '</a><img src="images/5.jpg" class="small_image" alt=""></span>' +
+                '<span><a href="#"> ' + allArticles[i].poster.first_name + '</a><img src="images/5.jpg" class="small_image" alt=""></span>' +
                 '<div class="comment row">' +
                     '<span class="label label-success article_comments col-md-2" id="comment_show_' + tempid + '">Show comments</span>' +
                     '<input class="new_comment_title col-md-2 hidden" id="new_comment_title_' + tempid + '" placeholder="Title">' +
