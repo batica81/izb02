@@ -105,6 +105,7 @@ class ArticleController extends FOSRestController
         }
         else return new View("Article title or body cannot be empty", Response::HTTP_NOT_ACCEPTABLE);
     }
+
     /**
      * @Rest\Delete("/api/article/{id}")
      */

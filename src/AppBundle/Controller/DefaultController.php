@@ -14,9 +14,19 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/admin", name="adminhomepage")
+     * @Route("/", name="htmlhomepage")
      */
     public function indexAction(Request $request)
+    {
+
+        $response = new RedirectResponse('http://izb02.dev/index.html');
+        return $response;
+    }
+
+    /**
+     * @Route("/admin", name="adminhomepage")
+     */
+    public function adminAction(Request $request)
     {
         // replace this example code with whatever you need
 //        return $this->render('default/index.html.twig', [

@@ -22,6 +22,20 @@ class Comment
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="string", length=255)
+     */
+    private $body;
+
+    /**
      * @var \AppBundle\Entity\User
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
@@ -38,26 +52,11 @@ class Comment
     private $article;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="body", type="string", length=255)
-     */
-    private $body;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="datetime", type="datetime")
      */
     private $datetime;
-
 
     /**
      * Get id

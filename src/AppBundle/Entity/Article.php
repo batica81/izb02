@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * Article
@@ -12,6 +14,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Article
 {
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
+
     /**
      * @var int
      *
@@ -24,16 +32,16 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="body", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255)
      */
-    private $body;
+    private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="body", type="string", length=255)
      */
-    private $title;
+    private $body;
 
     /**
      * @var \DateTime
@@ -52,6 +60,10 @@ class Article
      */
     private $poster;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article")
+     */
+    private $comments;
 
     /**
      * Get id
