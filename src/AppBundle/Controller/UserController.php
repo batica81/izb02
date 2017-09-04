@@ -71,35 +71,48 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/api/user/{id}")
+     * @Rest\Put("/api/user/{id}/changepass")
      */
-    public function updateUser($id,Request $request)
+    public function updatePassword($id,Request $request)
     {
         $data = new User;
-        $name = $request->get('name');
-        $role = $request->get('role');
+        $oldpass = $request->get('oldpass');
+        $newpass = $request->get('newpass');
+        $sn = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
+        $currentPass = $user->getHashedPassword();
+        $oldHashedPass = $oldpass;
+        if (empty($user)) {
+            return new View("User not found", Response::HTTP_NOT_FOUND);
+        }
+        elseif(!empty($oldpass) && !empty($newpass) && ($oldHashedPass != $currentPass)){
+            $user->setPassword($newpass);
+            $sn->flush();
+            return new View("Password updated Successfully", Response::HTTP_OK);
+        }
+        else return new View("Error changing password", Response::HTTP_NOT_ACCEPTABLE);
+    }
+
+    /**
+     * @Rest\Put("/api/user/{id}")
+     */
+    public function updateUserDetails($id,Request $request)
+    {
+        $data = new User;
+        $firstName = $request->get('firstName');
+        $lastName = $request->get('lastName');
         $sn = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
         if (empty($user)) {
             return new View("User not found", Response::HTTP_NOT_FOUND);
         }
-        elseif(!empty($name) && !empty($role)){
-            $user->setName($name);
-            $user->setRole($role);
+        elseif(!empty($firstName) && !empty($lastName)){
+            $user->setName($firstName);
+            $user->setRole($lastName);
             $sn->flush();
             return new View("User Updated Successfully", Response::HTTP_OK);
         }
-        elseif(empty($name) && !empty($role)){
-            $user->setRole($role);
-            $sn->flush();
-            return new View("role Updated Successfully", Response::HTTP_OK);
-        }
-        elseif(!empty($name) && empty($role)){
-            $user->setName($name);
-            $sn->flush();
-            return new View("User Name Updated Successfully", Response::HTTP_OK);
-        }
-        else return new View("User name or role cannot be empty", Response::HTTP_NOT_ACCEPTABLE);
+        else return new View("User details cannot be empty", Response::HTTP_NOT_ACCEPTABLE);
     }
 
     /**
@@ -125,4 +138,5 @@ class UserController extends FOSRestController
 }
 
 //TODO: Cascade delete in mysql
-//TODO: updateUser
+//TODO: $oldHashedPass
+//TODO: parameter groups in user model

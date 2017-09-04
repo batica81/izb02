@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Comment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -130,4 +131,102 @@ class ArticleController extends FOSRestController
         return new View("Article deleted successfully", Response::HTTP_OK);
     }
 
+//    COMMENTS
+
+    /**
+     * @Rest\Get("/api/article/{id}/comment")
+     */
+    public function getArticleComments($id)
+    {
+        $singleresult = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id)->getComments();
+        if ($singleresult === null) {
+            return new View("Article not found", Response::HTTP_NOT_FOUND);
+        }
+        return $singleresult;
+    }
+
+    /**
+     * @Rest\Delete("/api/article/{aid}/comment/{cid}")
+     */
+    public function deleteArticleComment($aid, $cid)
+    {
+        $data = new Article;
+        $sn = $this->getDoctrine()->getManager();
+        $poster = 12;
+        $comment = $this->getDoctrine()->getRepository('AppBundle:Comment')->find($cid);
+        if (empty($comment)) {
+            return new View("Comment not found", Response::HTTP_NOT_FOUND);
+        } else {
+            $originalPosterId = $comment->getPoster()->getId();
+        }
+
+        if (empty($poster) || ($poster != $originalPosterId)) {
+            return new View("Unathorized", Response::HTTP_FORBIDDEN);
+        } else {
+            $sn->remove($comment);
+            $sn->flush();
+        }
+        return new View("Comment deleted successfully", Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Post("/api/article/{aid}/comment")
+     */
+    public function postComment($aid, Request $request)
+    {
+        $data = new Comment;
+        $title = $request->get('title');
+        $body = $request->get('body');
+        $datetime = $request->get('datetime');
+        $poster = $request->get('poster');
+        if(empty($title) || empty($body))
+        {
+            return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
+        }
+        if(empty($poster))
+        {
+            return new View("Unathorized", Response::HTTP_FORBIDDEN);
+        }
+        $data->setBody($body);
+        $data->setTitle($title);
+        $data->setArticle($this->getDoctrine()->getRepository('AppBundle:Article')->find($aid));
+        $date = new \DateTime();
+        $data->setDatetime($date);
+        $data->setPoster($this->getDoctrine()->getRepository('AppBundle:User')->find($poster));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($data);
+        $em->flush();
+        return new View("Comment Added Successfully", Response::HTTP_OK);
+//        TODO: poster auth
+    }
+
+    /**
+     * @Rest\Put("/api/article/{aid}/comment")
+     */
+    public function updateComment($aid, $cid, Request $request)
+    {
+        $title = $request->get('title');
+        $body = $request->get('body');
+        $poster = $request->get('poster');
+        $cid = $request->get('id');
+        $sn = $this->getDoctrine()->getManager();
+        $comment = $this->getDoctrine()->getRepository('AppBundle:Comment')->find(44);
+
+        if (empty($comment)) {
+            return new View("Comment not found", Response::HTTP_NOT_FOUND);
+        } else {
+            $originalPosterId = $comment->getPoster()->getId();
+        }
+        if(empty($poster) || ($poster != $originalPosterId)) {
+            return new View("Unathorized", Response::HTTP_FORBIDDEN);
+        }
+
+        if(!empty($title) && !empty($body)){
+            $comment->setTitle($title);
+            $comment->setBody($body);
+            $sn->flush();
+            return new View("Comment Updated Successfully", Response::HTTP_OK);
+        }
+        else return new View("Comment title or body cannot be empty", Response::HTTP_NOT_ACCEPTABLE);
+    }
 }

@@ -274,10 +274,10 @@ function updateComment(articleId, commentId, title, body) {
         },
         data: JSON.stringify({
             "id": commentId,
-            "poster": currentUser.id,
             "article" : articleId,
-            'body' : body,
             'title' : title,
+            'body' : body,
+            "poster": currentUser.id,
             "datetime": new Date()
         }),
         success:
@@ -402,13 +402,15 @@ function displayComments(allArticleComments, articleId) {
     for (var i=0; i<allArticleComments.length; i++) {
 
         tempArticleCommentId = allArticleComments[i].id;
-        tempArticleId = allArticleComments[i].article;
+        tempArticleId = allArticleComments[i].article.id;
         tempCommentTitle = allArticleComments[i].title;
         tempCommentBody = allArticleComments[i].body;
+        tempCommentPoster = allArticleComments[i].poster.first_name;
 
         $('#comment_space_' + tempArticleId).append('' +
             '<h3 class="comment_title" id="comment_title_'+tempArticleCommentId+'">'+ tempCommentTitle + '</h3>' +
             '<h4 class="comment_body" id="comment_body_'+tempArticleCommentId+'">' + tempCommentBody + '</h4>' +
+            '<h6>posted by '+tempCommentPoster+'</h6>' +
             '<span class="label label-danger delete_comment pull-right hidden" id="delete_comment_'+tempArticleCommentId+'">Delete Comment</span>' +
             '<span class="label label-warning edit_comment pull-right hidden" id="edit_comment_'+tempArticleCommentId+'">Edit Comment</span>' +
             '<span class="label label-info update_comment pull-right hidden" id="update_comment_'+tempArticleCommentId+'">Save changes</span>' +

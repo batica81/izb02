@@ -170,5 +170,14 @@ class Article
     {
         return $this->poster;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
 }
 
