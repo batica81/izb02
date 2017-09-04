@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -11,8 +12,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
+
+    private $salt;
+
+    private $roles;
+
+
     /**
      * @var int
      *
@@ -189,6 +196,28 @@ class User
     public function getHashedPassword()
     {
         return $this->hashedPassword;
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+//        return $this->roles;
+    }
+
+    public function getSalt()
+    {
+
+        return $this->salt;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 
 }

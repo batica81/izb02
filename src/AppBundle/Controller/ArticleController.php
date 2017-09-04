@@ -31,7 +31,7 @@ class ArticleController extends FOSRestController
     {
         $restresult = $this->getDoctrine()->getRepository('AppBundle:Article')->findBy(array(), array('datetime' => 'DESC'));
         if ($restresult === null) {
-            return new View("there are no users exist", Response::HTTP_NOT_FOUND);
+            return new View("There are no articles to show", Response::HTTP_NOT_FOUND);
         }
         return $restresult;
     }

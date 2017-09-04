@@ -4,15 +4,11 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory:
-                users:
-                    ryan:
-                        password: $2a$06$MbemF4Pn6XteyQQfxBj.x.TCm8lbWuypzrFp5XPtnRJ9yxEqpeVcm
-                        roles: 'ROLE_USER'
-                    admin:
-                        password: $2a$06$MbemF4Pn6XteyQQfxBj.x.TCm8lbWuypzrFp5XPtnRJ9yxEqpeVcm
-                        roles: 'ROLE_ADMIN'
+        db_provider:
+            entity:
+                class: AppBundle:User
+                property: email
+
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -27,7 +23,14 @@ security:
             http_basic: ~
 
             # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+#            form_login:
+            http_basic:
+#                login_path: login
+#                check_path: login
+
+            logout:
+                path: /logout
+                target: /
 
     access_control:
             # require ROLE_ADMIN for /admin*
@@ -39,3 +42,5 @@ security:
             algorithm: bcrypt
 #            algorithm: plaintext
             cost: 12
+        AppBundle\Entity\User:
+            algorithm: bcrypt

@@ -23,49 +23,49 @@ class DefaultController extends Controller
         return $response;
     }
 
-    /**
-     * @Route("/admin", name="adminhomepage")
-     */
-    public function adminAction(Request $request)
-    {
-        // replace this example code with whatever you need
-//        return $this->render('default/index.html.twig', [
-//            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-//        ]);
-//        return new View("there are no users exist", Response::HTTP_NOT_FOUND);
-//        return new View("Hello", Response::HTTP_OK);
-
-
-        return new Response('<html><body>Admin page!<br><a href="/logout">Logout</a></body></html>');
-    }
-
-    /**
-     * @Route("/logout", name="logout")
-     */
-    public function logoutAction(Request $request)
-    {
-        // replace this example code with whatever you need
-//        return $this->render('default/index.html.twig', [
-//            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-//        ]);
-//        return new View("there are no users exist", Response::HTTP_NOT_FOUND);
-//        return new View("Bye Bye!", Response::HTTP_UNAUTHORIZED);
-//        return new Response('<html><body>Bye Bye!</body></html>', Response::HTTP_UNAUTHORIZED);
-
-        $response = new RedirectResponse('/admin',302,['Authorization' => 'Basic bG9nb3V0OmxvZ291dA==']);
-
-//        $response->headers->set('Authorization', 'Basic bG9nb3V0OmxvZ291dA==');
-
-        $response->headers->set('Authorization', 'Basic bG9nb3V0OmxvZ291dA==');
-
-        return $response;
-//        $request = Request::create(
-//            '/hello-world',
-//            'GET',
-//            array('name' => 'Fabien')
-//        );
+//    /**
+//     * @Route("/admin", name="adminhomepage")
+//     */
+//    public function adminAction(Request $request)
+//    {
+//        // replace this example code with whatever you need
+////        return $this->render('default/index.html.twig', [
+////            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+////        ]);
+////        return new View("there are no users exist", Response::HTTP_NOT_FOUND);
+////        return new View("Hello", Response::HTTP_OK);
 //
-//        $request::send();
-//        return new Response('<html><body>Admin page!</body></html>');
-    }
+//
+//        return new Response('<html><body>Admin page!<br><a href="/logout">Logout</a></body></html>');
+//    }
+//
+//    /**
+//     * @Route("/logout", name="logout")
+//     */
+//    public function logoutAction(Request $request)
+//    {
+//        // replace this example code with whatever you need
+////        return $this->render('default/index.html.twig', [
+////            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+////        ]);
+////        return new View("there are no users exist", Response::HTTP_NOT_FOUND);
+////        return new View("Bye Bye!", Response::HTTP_UNAUTHORIZED);
+////        return new Response('<html><body>Bye Bye!</body></html>', Response::HTTP_UNAUTHORIZED);
+//
+//        $response = new RedirectResponse('/admin',302,['Authorization' => 'Basic bG9nb3V0OmxvZ291dA==']);
+//
+////        $response->headers->set('Authorization', 'Basic bG9nb3V0OmxvZ291dA==');
+//
+//        $response->headers->set('Authorization', 'Basic bG9nb3V0OmxvZ291dA==');
+//
+//        return $response;
+////        $request = Request::create(
+////            '/hello-world',
+////            'GET',
+////            array('name' => 'Fabien')
+////        );
+////
+////        $request::send();
+////        return new Response('<html><body>Admin page!</body></html>');
+//    }
 }
