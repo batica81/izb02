@@ -210,7 +210,7 @@ class ArticleController extends FOSRestController
         $poster = $request->get('poster');
         $cid = $request->get('id');
         $sn = $this->getDoctrine()->getManager();
-        $comment = $this->getDoctrine()->getRepository('AppBundle:Comment')->find(44);
+        $comment = $this->getDoctrine()->getRepository('AppBundle:Comment')->find($cid);
 
         if (empty($comment)) {
             return new View("Comment not found", Response::HTTP_NOT_FOUND);
