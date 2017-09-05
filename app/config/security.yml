@@ -11,36 +11,31 @@ security:
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
 
         main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+#            pattern: ^/api/
+            pattern: ~
             http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-#            form_login:
-            http_basic:
-#                login_path: login
-#                check_path: login
+            provider: db_provider
 
             logout:
                 path: /logout
-                target: /
-
+#                target: /
+#
+#    access_control:
+#            # require ROLE_ADMIN for /admin*
+#            - { path: ^/admin, roles: ROLE_ADMIN }
     access_control:
-            # require ROLE_ADMIN for /admin*
-            - { path: ^/admin, roles: ROLE_ADMIN }
-
+        - { path: ^/api/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/user/, role: ROLE_ADMIN }
+        - { path: ^/, role: ROLE_ADMIN }
 
     encoders:
-        Symfony\Component\Security\Core\User\User:
-            algorithm: bcrypt
-#            algorithm: plaintext
-            cost: 12
         AppBundle\Entity\User:
-            algorithm: bcrypt
+#            algorithm: bcrypt
+            algorithm: plaintext
