@@ -13,7 +13,7 @@ insert into test_user (name, role) values ('Annice Wozencraft', 'Budget/Accounti
 insert into test_user (name, role) values ('Marijo Greenwood', 'Administrative Officer');
 insert into test_user (name, role) values ('Agneta Thrower', 'Business Systems Development Analyst');
 insert into test_user (name, role) values ('Skipp Riddett', 'Senior Quality Engineer');
-insert into test_user (name, role) values ('Cherish Fiveash', 'Financial Advisor');
+insert into test_user (name, role) values ('Cherish Fiveosh', 'Financial Advisor');
 insert into test_user (name, role) values ('Merilee Bruhnsen', 'Assistant Manager');
 insert into test_user (name, role) values ('Derry O''Carran', 'Paralegal');
 insert into test_user (name, role) values ('Linn Barnaclough', 'Paralegal');
