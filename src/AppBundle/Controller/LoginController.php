@@ -23,7 +23,7 @@ use Swagger\Annotations as SWG;
 class LoginController extends FOSRestController
 {
     /**
-     * @Rest\Post("/oauth2/token")
+     * @Rest\Post("api/oauth2/token")
      */
     public function login(Request $request)
     {

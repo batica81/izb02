@@ -22,6 +22,10 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints\DateTime;
 
+/**
+ * Class ArticleController
+ * @package AppBundle\Controller
+ */
 class ArticleController extends FOSRestController
 {
     /**

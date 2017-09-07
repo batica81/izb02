@@ -94,11 +94,14 @@ fos_rest:
 
 #swagger
 nelmio_api_doc:
+    models: { use_jms: true }
     routes:
         path_patterns: # an array of regexps
-            - ^/api
+            - ^/api/article
+            - ^/api/user
+            - ^/api/oauth2
     documentation:
         info:
-            title: My App
-            description: This is an awesome app!
-            version: 1.0.0
+            title: Izb02
+            description: Aplikacija za ispit iz predmeta Izabrana poglavlja iz IS, FON 2017.
+            version: 2.0.0

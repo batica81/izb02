@@ -1,5 +1,6 @@
 body {
-	background: url(../images/background.jpg) no-repeat center center fixed;
+	/*background: url(../images/background.jpg) no-repeat center center fixed;*/
+	background: url(../images/background-2.png) no-repeat center center fixed;
 	background-size: cover;
 }
 
@@ -22,6 +23,10 @@ body {
 	width: 200px;
 	border-radius: 20px;
 	top: 200px;
+}
+
+.indexpage, .user_profile h2, .login-page h2 {
+	color: aliceblue;
 }
 
 /*ARTICLE PAGE*/

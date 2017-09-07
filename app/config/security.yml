@@ -16,8 +16,8 @@ security:
 #            security: false
 
         main:
-#            pattern: ^/api/
-            pattern: ~
+            pattern: ^/api/user
+#            pattern: ~
             http_basic: ~
             provider: db_provider
 
@@ -29,11 +29,12 @@ security:
 #            # require ROLE_ADMIN for /admin*
 #            - { path: ^/admin, roles: ROLE_ADMIN }
     access_control:
-        - { path: ^/api/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/user/, role: ROLE_ADMIN }
-        - { path: ^/, role: ROLE_ADMIN }
+#        - { path: ^/api/user, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/api/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/admin/, role: ROLE_ADMIN }
+#        - { path: ^/user/, role: ROLE_ADMIN }
+#        - { path: ^/, role: ROLE_ADMIN }
 
     encoders:
         AppBundle\Entity\User:
