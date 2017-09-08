@@ -14,14 +14,23 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class User implements UserInterface
 {
-
+    /**
+     * @var
+     *
+     * @Groups({"group2"})
+     */
     private $salt;
 
+    /**
+     * @var
+     *
+     * @Groups({"group1"})
+     */
     private $roles;
-
 
     /**
      * @var int
+     * @Groups({"group1"})
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -31,6 +40,7 @@ class User implements UserInterface
 
     /**
      * @var string
+     * @Groups({"group1"})
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
@@ -38,6 +48,7 @@ class User implements UserInterface
 
     /**
      * @var string
+     * @Groups({"group1"})
      *
      * @ORM\Column(name="firstName", type="string", length=255)
      */
@@ -45,6 +56,7 @@ class User implements UserInterface
 
     /**
      * @var string
+     * @Groups({"group1"})
      *
      * @ORM\Column(name="lastName", type="string", length=255)
      */
