@@ -29,7 +29,7 @@ security:
 #            # require ROLE_ADMIN for /admin*
 #            - { path: ^/admin, roles: ROLE_ADMIN }
     access_control:
-#        - { path: ^/api/user, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/article, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/api/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/admin/, role: ROLE_ADMIN }

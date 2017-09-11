@@ -22,6 +22,9 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints\DateTime;
 
+//use Symfony\Component\Routing\Annotation\Route;
+
+
 /**
  * Class ArticleController
  * @package AppBundle\Controller
@@ -30,6 +33,20 @@ class ArticleController extends FOSRestController
 {
     /**
      * @Rest\Get("/api/article")
+     *
+     * @SWG\Info(title="My First API", version="0.1")
+     *
+     * @SWG\Get(
+     *     path="/api/resource.json",
+     *     @SWG\Response(response="200", description="An example resource")
+     * )
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns the rewards of an user",
+     * )
+     *
+     * @SWG\Tag(name="articles")
      */
     public function getAllArticles()
     {
@@ -42,8 +59,10 @@ class ArticleController extends FOSRestController
 
     /**
      * @Rest\Get("/api/article/{id}")
+     * @param int $id
+     * @return Article|View|null|object
      */
-    public function getArticle($id)
+    public function getArticle(int $id)
     {
         $singleresult = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id);
         if ($singleresult === null) {
@@ -54,6 +73,8 @@ class ArticleController extends FOSRestController
 
     /**
      * @Rest\Post("/api/article")
+     * @param Request $request
+     * @return View
      */
     public function postArticle(Request $request)
     {
@@ -83,8 +104,11 @@ class ArticleController extends FOSRestController
 
     /**
      * @Rest\Put("/api/article/{id}")
+     * @param int $id
+     * @param Request $request
+     * @return View
      */
-    public function updateArticle($id,Request $request)
+    public function updateArticle(int $id,Request $request)
     {
         $data = new Article();
         $title = $request->get('title');
@@ -113,8 +137,10 @@ class ArticleController extends FOSRestController
 
     /**
      * @Rest\Delete("/api/article/{id}")
+     * @param int $id
+     * @return View
      */
-    public function deleteArticle($id)
+    public function deleteArticle(int $id)
     {
         $data = new Article;
         $sn = $this->getDoctrine()->getManager();
@@ -139,8 +165,10 @@ class ArticleController extends FOSRestController
 
     /**
      * @Rest\Get("/api/article/{id}/comment")
+     * @param int $id
+     * @return View
      */
-    public function getArticleComments($id)
+    public function getArticleComments(int $id)
     {
         $singleresult = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id)->getComments();
         if ($singleresult === null) {
@@ -151,8 +179,11 @@ class ArticleController extends FOSRestController
 
     /**
      * @Rest\Delete("/api/article/{aid}/comment/{cid}")
+     * @param int $aid
+     * @param int $cid
+     * @return View
      */
-    public function deleteArticleComment($aid, $cid)
+    public function deleteArticleComment(int $aid, int $cid)
     {
         $data = new Article;
         $sn = $this->getDoctrine()->getManager();
@@ -175,8 +206,11 @@ class ArticleController extends FOSRestController
 
     /**
      * @Rest\Post("/api/article/{aid}/comment")
+     * @param int $aid
+     * @param Request $request
+     * @return View
      */
-    public function postComment($aid, Request $request)
+    public function postComment(int $aid, Request $request)
     {
         $data = new Comment;
         $title = $request->get('title');
@@ -206,8 +240,12 @@ class ArticleController extends FOSRestController
 
     /**
      * @Rest\Put("/api/article/{aid}/comment")
+     * @param int $aid
+     * @param int $cid
+     * @param Request $request
+     * @return View
      */
-    public function updateComment($aid, $cid, Request $request)
+    public function updateComment(int $aid, int $cid, Request $request)
     {
         $title = $request->get('title');
         $body = $request->get('body');

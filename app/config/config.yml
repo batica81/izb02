@@ -94,12 +94,11 @@ fos_rest:
 
 #swagger
 nelmio_api_doc:
-    models: { use_jms: true }
+    models: { use_jms: false }
     routes:
         path_patterns: # an array of regexps
-            - ^/api/article
-            - ^/api/user
-            - ^/api/oauth2
+            - ^/api
+
     documentation:
         info:
             title: Izb02

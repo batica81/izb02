@@ -15,6 +15,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Article
 {
 
+    /**
+     * Article constructor.
+     */
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -62,6 +65,7 @@ class Article
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article")
+     * @ORM\Column(type="string")
      */
     private $comments;
 
