@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "composer/ca-bundle",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "b17e6153cb7f33c7e44eb59578dc12eee5dc8e12"
+                "reference": "9dd73a03951357922d8aee6cc084500de93e2343"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/b17e6153cb7f33c7e44eb59578dc12eee5dc8e12",
-                "reference": "b17e6153cb7f33c7e44eb59578dc12eee5dc8e12",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/9dd73a03951357922d8aee6cc084500de93e2343",
+                "reference": "9dd73a03951357922d8aee6cc084500de93e2343",
                 "shasum": ""
             },
             "require": {
@@ -64,7 +64,7 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2017-03-06 11:59:08"
+            "time": "2017-09-11 07:24:36"
         },
         {
             "name": "doctrine/annotations",
@@ -1467,12 +1467,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "1bbfea649beac0764f07c38bbe558a1ffd0df30b"
+                "reference": "3adf8c3d97663ad27768f021f093cef16701a5df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/1bbfea649beac0764f07c38bbe558a1ffd0df30b",
-                "reference": "1bbfea649beac0764f07c38bbe558a1ffd0df30b",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/3adf8c3d97663ad27768f021f093cef16701a5df",
+                "reference": "3adf8c3d97663ad27768f021f093cef16701a5df",
                 "shasum": ""
             },
             "require": {
@@ -1539,7 +1539,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2017-08-31 10:01:05"
+            "time": "2017-09-09 18:40:21"
         },
         {
             "name": "nelmio/cors-bundle",
