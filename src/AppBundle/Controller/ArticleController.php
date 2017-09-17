@@ -62,7 +62,7 @@ class ArticleController extends FOSRestController
      * @param int $id
      * @return Article|View|null|object
      */
-    public function getArticle(int $id)
+    public function getArticle($id)
     {
         $singleresult = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id);
         if ($singleresult === null) {
@@ -108,7 +108,7 @@ class ArticleController extends FOSRestController
      * @param Request $request
      * @return View
      */
-    public function updateArticle(int $id,Request $request)
+    public function updateArticle($id,Request $request)
     {
         $data = new Article();
         $title = $request->get('title');
@@ -140,7 +140,7 @@ class ArticleController extends FOSRestController
      * @param int $id
      * @return View
      */
-    public function deleteArticle(int $id)
+    public function deleteArticle($id)
     {
         $data = new Article;
         $sn = $this->getDoctrine()->getManager();
@@ -168,7 +168,7 @@ class ArticleController extends FOSRestController
      * @param int $id
      * @return View
      */
-    public function getArticleComments(int $id)
+    public function getArticleComments($id)
     {
         $singleresult = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id)->getComments();
         if ($singleresult === null) {
@@ -183,7 +183,7 @@ class ArticleController extends FOSRestController
      * @param int $cid
      * @return View
      */
-    public function deleteArticleComment(int $aid, int $cid)
+    public function deleteArticleComment($aid, $cid)
     {
         $data = new Article;
         $sn = $this->getDoctrine()->getManager();
@@ -210,7 +210,7 @@ class ArticleController extends FOSRestController
      * @param Request $request
      * @return View
      */
-    public function postComment(int $aid, Request $request)
+    public function postComment($aid, Request $request)
     {
         $data = new Comment;
         $title = $request->get('title');
@@ -245,7 +245,7 @@ class ArticleController extends FOSRestController
      * @param Request $request
      * @return View
      */
-    public function updateComment(int $aid, int $cid, Request $request)
+    public function updateComment($aid, $cid, Request $request)
     {
         $title = $request->get('title');
         $body = $request->get('body');
