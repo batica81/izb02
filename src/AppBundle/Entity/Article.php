@@ -65,7 +65,6 @@ class Article
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article")
-     * @ORM\Column(type="string")
      */
     private $comments;
 

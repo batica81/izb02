@@ -10,19 +10,13 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Comment;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
-use AppBundle\Entity\TestUser;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Validator\Constraints\DateTime;
-
-//use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
@@ -34,19 +28,6 @@ class ArticleController extends FOSRestController
     /**
      * @Rest\Get("/api/article")
      *
-     * @SWG\Info(title="My First API", version="0.1")
-     *
-     * @SWG\Get(
-     *     path="/api/resource.json",
-     *     @SWG\Response(response="200", description="An example resource")
-     * )
-     *
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns the rewards of an user",
-     * )
-     *
-     * @SWG\Tag(name="articles")
      */
     public function getAllArticles()
     {
