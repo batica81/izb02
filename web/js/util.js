@@ -1,6 +1,6 @@
 
 // apiUrl = "http://127.0.0.1:8000/api";
-apiUrl = "http://izb02.dev/api";
+apiUrl = "/api";
 
 // ************** User functions ************** //
 
