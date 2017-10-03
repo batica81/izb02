@@ -85,14 +85,15 @@ function addNewUser (email, firstName, lastName, pass) {
 function changePass (oldpass, newpass) {
     $.ajax({
         url: apiUrl + "/user/changepass",
-        method: "POST",
+        method: "PUT",
         contentType: 'application/x-www-form-urlencoded',
         headers: {
             'Authorization' : 'Bearer ' + Cookies.get('Bearer')
         },
         data: {
             "oldpass": oldpass,
-            "newpass": newpass
+            "newpass": newpass,
+            "id":   1
         },
         success:
             function () {
@@ -110,13 +111,14 @@ function updateUser (firstName, lastName) {
         url: apiUrl + "/user",
         method: "PUT",
         contentType: 'application/json',
-        dataType: "json",
+        // dataType: "json",
         headers: {
             'Authorization' : 'Bearer ' + Cookies.get('Bearer')
         },
         data: JSON.stringify({
-            "id": JSON.parse(sessionStorage.getItem('user')).id,
-            "email": JSON.parse(sessionStorage.getItem('user')).email,
+            // "id": JSON.parse(sessionStorage.getItem('user')).id,
+            "id": 1,
+            // "email": JSON.parse(sessionStorage.getItem('user')).email,
             "firstName": firstName,
             "lastName": lastName
         }),
@@ -181,7 +183,8 @@ function updateArticle(articleId, title, body) {
         },
         data: JSON.stringify({
             "id": articleId,
-            "poster": currentUser.id,
+            // "poster": currentUser.id,
+            "poster": 1,
             'body' : body,
             'title' : title,
             "datetime": new Date()
@@ -245,7 +248,8 @@ function postComment(articleId, title, body) {
         },
         data: JSON.stringify({
             "id": 0,
-            "poster": JSON.parse(sessionStorage.getItem('user')).id,
+            // "poster": JSON.parse(sessionStorage.getItem('user')).id,
+            "poster": 1,
             "article" : articleId,
             'title': title,
             'body': body,
@@ -254,7 +258,7 @@ function postComment(articleId, title, body) {
         success: function (data) {
             console.log(data);
             console.log('Comment posted.');
-            getComments(data.article);
+            getComments(articleId);
         },
         error: function (e) {
             alert(e.responseText);
@@ -277,13 +281,14 @@ function updateComment(articleId, commentId, title, body) {
             "article" : articleId,
             'title' : title,
             'body' : body,
-            "poster": currentUser.id,
+            // "poster": currentUser.id,
+            "poster": 1,
             "datetime": new Date()
         }),
         success:
             function (data) {
                 console.log(data);
-                getComments(data.article);
+                getComments(articleId);
                 showFlash('Comment updated');
             },
         error:
@@ -411,9 +416,9 @@ function displayComments(allArticleComments, articleId) {
             '<h3 class="comment_title" id="comment_title_'+tempArticleCommentId+'">'+ tempCommentTitle + '</h3>' +
             '<h4 class="comment_body" id="comment_body_'+tempArticleCommentId+'">' + tempCommentBody + '</h4>' +
             '<h6>posted by '+tempCommentPoster+'</h6>' +
-            '<span class="label label-danger delete_comment pull-right hidden" id="delete_comment_'+tempArticleCommentId+'">Delete Comment</span>' +
-            '<span class="label label-warning edit_comment pull-right hidden" id="edit_comment_'+tempArticleCommentId+'">Edit Comment</span>' +
-            '<span class="label label-info update_comment pull-right hidden" id="update_comment_'+tempArticleCommentId+'">Save changes</span>' +
+            '<span class="label label-danger delete_comment pull-right -hidden" id="delete_comment_'+tempArticleCommentId+'">Delete Comment</span>' +
+            '<span class="label label-warning edit_comment pull-right -hidden" id="edit_comment_'+tempArticleCommentId+'">Edit Comment</span>' +
+            '<span class="label label-info update_comment pull-right -hidden" id="update_comment_'+tempArticleCommentId+'">Save changes</span>' +
             '<br>');
 
         if (currentUser !== null && currentUser.id === allArticleComments[i].poster) {

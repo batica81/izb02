@@ -40,14 +40,14 @@ class Comment
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="poster_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="poster_id", referencedColumnName="id", nullable=false)
      * })
      */
     private $poster;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Article", inversedBy="comments")
-     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", nullable=false)
      */
     private $article;
 

@@ -16,7 +16,7 @@ security:
 #            security: false
 
         main:
-            pattern: ^/api/user
+            pattern: ^/api/user123
 #            pattern: ~
             http_basic: ~
             provider: db_provider

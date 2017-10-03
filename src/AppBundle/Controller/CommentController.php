@@ -29,11 +29,11 @@ class CommentController extends FOSRestController
      */
     public function getAllComments()
     {
-        $restresult = $this->getDoctrine()->getRepository('AppBundle:Comment')->findAll();
-        if ($restresult === null) {
-            return new View("There are no comments", Response::HTTP_NOT_FOUND);
-        }
-        return $restresult;
+//        $restresult = $this->getDoctrine()->getRepository('AppBundle:Comment')->findAll();
+//        if ($restresult === null) {
+//            return new View("There are no comments", Response::HTTP_NOT_FOUND);
+//        }
+//        return $restresult;
     }
 
     /**
@@ -41,11 +41,11 @@ class CommentController extends FOSRestController
      */
     public function getComment($id)
     {
-        $singleresult = $this->getDoctrine()->getRepository('AppBundle:Comment')->find($id);
-        if ($singleresult === null) {
-            return new View("Comment not found", Response::HTTP_NOT_FOUND);
-        }
-        return $singleresult;
+//        $singleresult = $this->getDoctrine()->getRepository('AppBundle:Comment')->find($id);
+//        if ($singleresult === null) {
+//            return new View("Comment not found", Response::HTTP_NOT_FOUND);
+//        }
+//        return $singleresult;
     }
 
 

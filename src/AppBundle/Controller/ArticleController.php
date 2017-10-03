@@ -84,19 +84,19 @@ class ArticleController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/api/article/{id}")
-     * @param int $id
+     * @Rest\Put("/api/article")
      * @param Request $request
      * @return View
      */
-    public function updateArticle($id,Request $request)
+    public function updateArticle(Request $request)
     {
         $data = new Article();
         $title = $request->get('title');
         $body = $request->get('body');
         $poster = $request->get('poster');
+        $articleId = $request->get('id');
         $sn = $this->getDoctrine()->getManager();
-        $article = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id);
+        $article = $this->getDoctrine()->getRepository('AppBundle:Article')->find($articleId);
 
         if (empty($article)) {
             return new View("Article not found", Response::HTTP_NOT_FOUND);
@@ -125,6 +125,7 @@ class ArticleController extends FOSRestController
     {
         $data = new Article;
         $sn = $this->getDoctrine()->getManager();
+//        $poster = 1; - temporary workaraound
         $poster = 1;
         $article = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id);
         if (empty($article)) {
@@ -168,7 +169,7 @@ class ArticleController extends FOSRestController
     {
         $data = new Article;
         $sn = $this->getDoctrine()->getManager();
-        $poster = 12;
+        $poster = 1;
         $comment = $this->getDoctrine()->getRepository('AppBundle:Comment')->find($cid);
         if (empty($comment)) {
             return new View("Comment not found", Response::HTTP_NOT_FOUND);
@@ -189,7 +190,7 @@ class ArticleController extends FOSRestController
      * @Rest\Post("/api/article/{aid}/comment")
      * @param int $aid
      * @param Request $request
-     * @return View
+     * @return Comment|View|null|object
      */
     public function postComment($aid, Request $request)
     {
@@ -197,7 +198,8 @@ class ArticleController extends FOSRestController
         $title = $request->get('title');
         $body = $request->get('body');
         $datetime = $request->get('datetime');
-        $poster = $request->get('poster');
+//        $poster = $request->get('poster');
+        $poster = 1;
         if(empty($title) || empty($body))
         {
             return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
@@ -216,17 +218,15 @@ class ArticleController extends FOSRestController
         $em->persist($data);
         $em->flush();
         return new View("Comment Added Successfully", Response::HTTP_OK);
-//        TODO: poster auth
     }
 
     /**
      * @Rest\Put("/api/article/{aid}/comment")
      * @param int $aid
-     * @param int $cid
      * @param Request $request
      * @return View
      */
-    public function updateComment($aid, $cid, Request $request)
+    public function updateComment($aid, Request $request)
     {
         $title = $request->get('title');
         $body = $request->get('body');
@@ -253,3 +253,5 @@ class ArticleController extends FOSRestController
         else return new View("Comment title or body cannot be empty", Response::HTTP_NOT_ACCEPTABLE);
     }
 }
+
+//        TODO: poster authorization

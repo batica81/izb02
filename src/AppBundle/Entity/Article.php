@@ -58,7 +58,7 @@ class Article
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumns({
-     * @ORM\JoinColumn(name="poster_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="poster_id", referencedColumnName="id", nullable=false)
      * })
      */
     private $poster;

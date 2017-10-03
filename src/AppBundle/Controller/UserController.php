@@ -63,6 +63,7 @@ class UserController extends FOSRestController
         $data->setFirstName($firstName);
         $data->setLastName($lastName);
         $data->setPassword($password);
+//        prepraviti algoritam
         $data->setHashedPassword(md5($password));
         $em = $this->getDoctrine()->getManager();
         $em->persist($data);
@@ -71,13 +72,15 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/api/user/{id}/changepass")
+     * @Rest\Put("/api/user/changepass")
      */
-    public function updatePassword($id,Request $request)
+    public function updatePassword(Request $request)
     {
+//        TODO: Popraviti kada proradi hashing
         $data = new User;
         $oldpass = $request->get('oldpass');
         $newpass = $request->get('newpass');
+        $id = $request->get('id');
         $sn = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
         $currentPass = $user->getHashedPassword();
@@ -94,21 +97,22 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/api/user/{id}")
+     * @Rest\Put("/api/user")
      */
-    public function updateUserDetails($id,Request $request)
+    public function updateUserDetails(Request $request)
     {
         $data = new User;
         $firstName = $request->get('firstName');
         $lastName = $request->get('lastName');
+        $id = $request->get('id');
         $sn = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
         if (empty($user)) {
             return new View("User not found", Response::HTTP_NOT_FOUND);
         }
         elseif(!empty($firstName) && !empty($lastName)){
-            $user->setName($firstName);
-            $user->setRole($lastName);
+            $user->setFirstName($firstName);
+            $user->setLastName($lastName);
             $sn->flush();
             return new View("User Updated Successfully", Response::HTTP_OK);
         }
@@ -120,19 +124,19 @@ class UserController extends FOSRestController
      */
     public function deleteUser($id)
     {
-        $data = new User;
-        $currentUserId = 1;
-        $sn = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
-        if (empty($user)) {
-            return new View("User not found", Response::HTTP_NOT_FOUND);
-        }
-        elseif ($user->getId() == $currentUserId) {
-            $sn->remove($user);
-            $sn->flush();
-            return new View("User deleted successfully", Response::HTTP_OK);
-        }
-        return new View("Unathorized", Response::HTTP_FORBIDDEN);
+//        $data = new User;
+//        $currentUserId = 1;
+//        $sn = $this->getDoctrine()->getManager();
+//        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
+//        if (empty($user)) {
+//            return new View("User not found", Response::HTTP_NOT_FOUND);
+//        }
+//        elseif ($user->getId() == $currentUserId) {
+//            $sn->remove($user);
+//            $sn->flush();
+//            return new View("User deleted successfully", Response::HTTP_OK);
+//        }
+//        return new View("Unathorized", Response::HTTP_FORBIDDEN);
 
     }
 }
