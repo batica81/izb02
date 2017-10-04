@@ -18,28 +18,39 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
-class SecurityController extends FOSRestController
+class SecurityController extends Controller
 {
+    /**
+     * @Route("/login", name="login")
+     */
+    public function loginAction(Request $request)
+    {
+       $helper = $this->get('security.authentication_utils');
+
+       return $this->render(
+           'auth/login.html.twig',
+           array(
+               'last_username' => $helper->getLastUsername(),
+               'error'         => $helper->getLastAuthenticationError(),
+           )
+       );
+    }
 
     /**
-     * @Rest\Get("/login", name="security_login")
+     * @Route("/login_check", name="security_login_check")
      */
-    public function loginAction ()
+    public function loginCheckAction()
     {
-//        $authenticationUtils = $this->get('security.authentication_utils');
-//
-//        $error = $authenticationUtils->getLastAuthenticationError();
-//
-//        $lastUsername = $authenticationUtils->getLastUsername();
-
-//        $whatever = array(
-//            'last_username' => $lastUsername,
-//            'error' => $error,
-//        );
-
-//        return $whatever;
-//        return new Response('<html><body>Admin page!<br><a href="/logout">Logout</a></body></html>');
-//        return new View("This will work eventually", Response::HTTP_OK);
 
     }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction()
+    {
+
+    }
+
+
 }

@@ -21,6 +21,12 @@ class User implements UserInterface
      */
     private $salt;
 
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $role;
+
     /**
      * @var
      *
@@ -75,7 +81,7 @@ class User implements UserInterface
      * @var string
      * @Groups({"group2"})
      *
-     * @ORM\Column(name="hashed_password", type="string", length=255, nullable=false)
+     * @ORM\Column(name="hashed_password", type="string", length=255, nullable=true)
      */
     private $hashedPassword;
 
@@ -210,10 +216,19 @@ class User implements UserInterface
         return $this->hashedPassword;
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role = null)
+    {
+        $this->role = $role;
+    }
+
     public function getRoles()
     {
-        return ['ROLE_USER'];
-//        return $this->roles;
+        return [$this->getRole()];
     }
 
     public function getSalt()
