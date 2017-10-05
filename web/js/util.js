@@ -16,13 +16,13 @@ function login (email, password) {
             '_password' : password
         },
         success:
-            function (data) {
-                Cookies.set('Bearer', data);
+            function () {
+                Cookies.set('Bearer', 'data');
                 getUserData();
             },
         error:
-            function () {
-                alert("Error logging in.");
+            function (e) {
+                console.log(e.responseText);
             }
     });
 }
@@ -56,7 +56,7 @@ function getUserData () {
 
 function addNewUser (email, firstName, lastName, pass) {
     $.ajax({
-        url: "/register",
+        url: apiUrl + "/user",
         method: "POST",
         contentType: 'application/json',
         dataType: "json",
@@ -73,7 +73,7 @@ function addNewUser (email, firstName, lastName, pass) {
                 console.log('User added.');
                 showFlash('Successfully registered!');
                 login(email, pass);
-                location.reload();
+                // location.reload();
             },
         error:
             function (e) {

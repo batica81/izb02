@@ -22,6 +22,43 @@ use Swagger\Annotations as SWG;
 class UserController extends FOSRestController
 {
 
+    /**
+     * @Rest\Post("/api/user")
+     */
+    public function registerAction(Request $request)
+    {
+        // Create a new blank user and process the form
+        $user = new User();
+        $email = $request->get('email');
+        $firstName = $request->get('firstName');
+        $lastName = $request->get('lastName');
+        $password = $request->get('pass');
+        if(empty($firstName) || empty($lastName) || empty($email) || empty($password))
+        {
+            return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
+        }
+        $user->setEmail($email);
+        $user->setFirstName($firstName);
+        $user->setLastName($lastName);
+        $user->setPassword($password);
+
+        // Encode the new users password
+        $encoder = $this->get('security.password_encoder');
+        $password = $encoder->encodePassword($user, $user->getPassword());
+        $user->setPassword($password);
+
+        // Set their role
+        $user->setRole('ROLE_USER');
+
+        // Save
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+//        return $this->redirectToRoute('security_login_check');
+//        return new View("User Added Successfully", Response::HTTP_OK);
+        return $user;
+    }
 
 
     /**
@@ -43,60 +80,34 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @Rest\Post("/api/user")
-     */
-    public function createUser(Request $request)
-    {
-        $data = new User;
-        $email = $request->get('email');
-        $firstName = $request->get('firstName');
-        $lastName = $request->get('lastName');
-        $password = $request->get('pass');
-        if(empty($firstName) || empty($lastName) || empty($email) || empty($password))
-        {
-            return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
-        }
-        $data->setEmail($email);
-        $data->setFirstName($firstName);
-        $data->setLastName($lastName);
-        $data->setPassword($password);
-//        prepraviti algoritam
-        $data->setHashedPassword(md5($password));
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($data);
-        $em->flush();
-        return new View("User Added Successfully", Response::HTTP_OK);
-    }
-
-    /**
      * @Rest\Put("/api/user/changepass")
      */
     public function updatePassword(Request $request)
     {
 //        TODO: Popraviti kada proradi hashing
-        $data = new User;
-        $oldpass = $request->get('oldpass');
-        $newpass = $request->get('newpass');
-        
-                       if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
-{
-    $user = $this->container->get('security.token_storage')->getToken()->getUser();
-    $id = $user->getId();
-}
-
-        $sn = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
-        $currentPass = $user->getHashedPassword();
-        $oldHashedPass = $oldpass;
-        if (empty($user)) {
-            return new View("User not found", Response::HTTP_NOT_FOUND);
-        }
-        elseif(!empty($oldpass) && !empty($newpass) && ($oldHashedPass != $currentPass)){
-            $user->setPassword($newpass);
-            $sn->flush();
-            return new View("Password updated Successfully", Response::HTTP_OK);
-        }
-        else return new View("Error changing password", Response::HTTP_NOT_ACCEPTABLE);
+//        $data = new User;
+//        $oldpass = $request->get('oldpass');
+//        $newpass = $request->get('newpass');
+//
+//                       if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
+//{
+//    $user = $this->container->get('security.token_storage')->getToken()->getUser();
+//    $id = $user->getId();
+//}
+//
+//        $sn = $this->getDoctrine()->getManager();
+//        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
+//        $currentPass = $user->getHashedPassword();
+//        $oldHashedPass = $oldpass;
+//        if (empty($user)) {
+//            return new View("User not found", Response::HTTP_NOT_FOUND);
+//        }
+//        elseif(!empty($oldpass) && !empty($newpass) && ($oldHashedPass != $currentPass)){
+//            $user->setPassword($newpass);
+//            $sn->flush();
+//            return new View("Password updated Successfully", Response::HTTP_OK);
+//        }
+//        else return new View("Error changing password", Response::HTTP_NOT_ACCEPTABLE);
     }
 
     /**
@@ -151,3 +162,5 @@ class UserController extends FOSRestController
 //TODO: Cascade delete in mysql
 //TODO: $oldHashedPass
 //TODO: parameter groups in user model
+//TODO: namestiti swagger makar i rucno
+//TODO: srediti bazu i mock data
