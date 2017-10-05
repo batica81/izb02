@@ -30,19 +30,5 @@ class DefaultController extends Controller
     }
 
 
-    /**
-     * @Route("/logout", name="logout")
-     */
-    public function logoutAction()
-    {
 
-//        $response = new RedirectResponse('/',302,['Authorization' => 'Basic bG9nb3V0OmxvZ291dA==']);
-//
-//
-//        $response->headers->set('Authorization', 'Basic bG9nb3V0OmxvZ291dA==');
-
-//        return $response;
-        return new Response('<html><body>Logged out!<br></body></html>');
-
-    }
 }

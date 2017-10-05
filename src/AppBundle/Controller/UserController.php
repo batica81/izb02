@@ -21,24 +21,21 @@ use Swagger\Annotations as SWG;
 
 class UserController extends FOSRestController
 {
+
+
+
     /**
      * @Rest\Get("/api/user")
      */
-    public function showAllUsers()
+    public function showUser()
     {
-        $restresult = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
-        if ($restresult === null) {
-            return new View("There are no users", Response::HTTP_NOT_FOUND);
-        }
-        return $restresult;
-    }
 
-    /**
-     * @Rest\Get("/api/user/{id}")
-     */
-    public function showUser($id)
-    {
-        $singleresult = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
+        if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
+{
+    $user = $this->container->get('security.token_storage')->getToken()->getUser();
+    $temp_id = $user->getId();
+}
+        $singleresult = $this->getDoctrine()->getRepository('AppBundle:User')->find($temp_id);
         if ($singleresult === null) {
             return new View("User not found", Response::HTTP_NOT_FOUND);
         }
@@ -80,7 +77,13 @@ class UserController extends FOSRestController
         $data = new User;
         $oldpass = $request->get('oldpass');
         $newpass = $request->get('newpass');
-        $id = $request->get('id');
+        
+                       if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
+{
+    $user = $this->container->get('security.token_storage')->getToken()->getUser();
+    $id = $user->getId();
+}
+
         $sn = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
         $currentPass = $user->getHashedPassword();
@@ -104,7 +107,11 @@ class UserController extends FOSRestController
         $data = new User;
         $firstName = $request->get('firstName');
         $lastName = $request->get('lastName');
-        $id = $request->get('id');
+                       if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
+{
+    $user = $this->container->get('security.token_storage')->getToken()->getUser();
+    $id = $user->getId();
+}
         $sn = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
         if (empty($user)) {

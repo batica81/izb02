@@ -114,9 +114,9 @@
                 var currentUser = JSON.parse(sessionStorage.getItem('user'));
 
                 if (currentUser) {
-                    $('.card-title').html(currentUser.firstName);
-                    $('#detail_name').append(currentUser.firstName);
-                    $('#detail_lastname').append(currentUser.lastName);
+                    $('.card-title').html(currentUser.first_name);
+                    $('#detail_name').append(currentUser.first_name);
+                    $('#detail_lastname').append(currentUser.last_name);
                     $('#detail_email').append(currentUser.email);
 
                     $('.update_details').click(function (event) {

@@ -63,7 +63,13 @@ class ArticleController extends FOSRestController
         $title = $request->get('title');
         $body = $request->get('body');
         $datetime = $request->get('datetime');
-        $poster = $request->get('poster');
+        // $poster = $request->get('poster');
+               if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
+{
+    $user = $this->container->get('security.token_storage')->getToken()->getUser();
+    $poster = $user->getId();
+}
+
         if(empty($title) || empty($body))
         {
             return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
@@ -93,7 +99,12 @@ class ArticleController extends FOSRestController
         $data = new Article();
         $title = $request->get('title');
         $body = $request->get('body');
-        $poster = $request->get('poster');
+        // $poster = $request->get('poster');
+                       if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
+{
+    $user = $this->container->get('security.token_storage')->getToken()->getUser();
+    $poster = $user->getId();
+}
         $articleId = $request->get('id');
         $sn = $this->getDoctrine()->getManager();
         $article = $this->getDoctrine()->getRepository('AppBundle:Article')->find($articleId);
@@ -125,8 +136,12 @@ class ArticleController extends FOSRestController
     {
         $data = new Article;
         $sn = $this->getDoctrine()->getManager();
-//        $poster = 1; - temporary workaraound
-        $poster = 1;
+               if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
+{
+    $user = $this->container->get('security.token_storage')->getToken()->getUser();
+    $poster = $user->getId();
+}
+
         $article = $this->getDoctrine()->getRepository('AppBundle:Article')->find($id);
         if (empty($article)) {
             return new View("Article not found", Response::HTTP_NOT_FOUND);
@@ -169,7 +184,13 @@ class ArticleController extends FOSRestController
     {
         $data = new Article;
         $sn = $this->getDoctrine()->getManager();
-        $poster = 1;
+        
+                       if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
+{
+    $user = $this->container->get('security.token_storage')->getToken()->getUser();
+    $poster = $user->getId();
+}
+
         $comment = $this->getDoctrine()->getRepository('AppBundle:Comment')->find($cid);
         if (empty($comment)) {
             return new View("Comment not found", Response::HTTP_NOT_FOUND);
@@ -198,8 +219,13 @@ class ArticleController extends FOSRestController
         $title = $request->get('title');
         $body = $request->get('body');
         $datetime = $request->get('datetime');
-//        $poster = $request->get('poster');
-        $poster = 1;
+
+               if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
+{
+    $user = $this->container->get('security.token_storage')->getToken()->getUser();
+    $poster = $user->getId();
+}
+
         if(empty($title) || empty($body))
         {
             return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
@@ -230,7 +256,13 @@ class ArticleController extends FOSRestController
     {
         $title = $request->get('title');
         $body = $request->get('body');
-        $poster = $request->get('poster');
+
+                       if( $this->container->get( 'security.authorization_checker' )->isGranted( 'IS_AUTHENTICATED_FULLY' ) )
+{
+    $user = $this->container->get('security.token_storage')->getToken()->getUser();
+    $poster = $user->getId();
+}
+
         $cid = $request->get('id');
         $sn = $this->getDoctrine()->getManager();
         $comment = $this->getDoctrine()->getRepository('AppBundle:Comment')->find($cid);
@@ -254,4 +286,3 @@ class ArticleController extends FOSRestController
     }
 }
 
-//        TODO: poster authorization

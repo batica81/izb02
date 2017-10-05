@@ -110,6 +110,10 @@ body {
 	padding: 8% 0 0;
 	margin: auto;
 }
+
+.login-page h3 {
+	color: #ffffff;
+}
 .form {
 	position: relative;
 	z-index: 1;

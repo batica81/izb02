@@ -76,7 +76,7 @@
 
                 if (currentUser) {
 
-                    $('.login-page').html('<h3>Logged in as: ' + currentUser.firstName + ' <a class="logout_btn" href="#">Logout</a></h3>');
+                    $('.login-page').html('<h3>Logged in as: ' + currentUser.first_name + ' <a class="logout_btn" href="/logout">Logout</a></h3>');
 
                     $('.logout_btn').click(function () {
                         logout();

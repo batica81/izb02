@@ -56,9 +56,9 @@
             <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-center -hidden">Please login to submit an article!</h3>
+                        <h3 class="panel-title text-center hidden">Please login to submit an article!</h3>
                     </div>
-                    <div class="panel-body -hidden">
+                    <div class="panel-body hidden">
                         <form action="#" method="post">
                             <div class="form-group">
                                 <input type="text" name="title" id="title_field" class="form-control input-sm" placeholder="Title">
@@ -79,8 +79,8 @@
 
                 currentUser = JSON.parse(sessionStorage.getItem('user'));
 
-                // if (currentUser) {
-                if (1) {
+                if (currentUser) {
+
                     $('.panel-body').removeClass('hidden');
                     $('.panel-title').text("Submit an article!");
 

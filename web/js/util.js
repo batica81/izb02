@@ -6,13 +6,14 @@ apiUrl = "/api";
 
 function login (email, password) {
     $.ajax({
-        url: apiUrl + "/oauth2/token",
+        // url: apiUrl + "/oauth2/token",
+        url: "/login_check",
         method: "POST",
         contentType: 'application/x-www-form-urlencoded',
         data: {
-            'grant_type' : 'Bearer',
-            'email' : email,
-            'password' : password
+            // 'grant_type' : 'Bearer',
+            '_email' : email,
+            '_password' : password
         },
         success:
             function (data) {
@@ -55,7 +56,7 @@ function getUserData () {
 
 function addNewUser (email, firstName, lastName, pass) {
     $.ajax({
-        url: apiUrl + "/user",
+        url: "/register",
         method: "POST",
         contentType: 'application/json',
         dataType: "json",
@@ -116,9 +117,9 @@ function updateUser (firstName, lastName) {
             'Authorization' : 'Bearer ' + Cookies.get('Bearer')
         },
         data: JSON.stringify({
-            // "id": JSON.parse(sessionStorage.getItem('user')).id,
-            "id": 1,
-            // "email": JSON.parse(sessionStorage.getItem('user')).email,
+            "id": JSON.parse(sessionStorage.getItem('user')).id,
+            // "id": 1,
+            "email": JSON.parse(sessionStorage.getItem('user')).email,
             "firstName": firstName,
             "lastName": lastName
         }),
@@ -159,8 +160,8 @@ function postArticle(title, body) {
             "id": 0,
             'title': title,
             'body': body,
-            // "poster": JSON.parse(sessionStorage.getItem('user')).id,
-            "poster": 1,
+            "poster": JSON.parse(sessionStorage.getItem('user')).id,
+            // "poster": 1,
             "datetime": new Date()
         }),
         success: function () {
@@ -183,8 +184,8 @@ function updateArticle(articleId, title, body) {
         },
         data: JSON.stringify({
             "id": articleId,
-            // "poster": currentUser.id,
-            "poster": 1,
+            "poster": currentUser.id,
+            // "poster": 1,
             'body' : body,
             'title' : title,
             "datetime": new Date()
@@ -248,8 +249,8 @@ function postComment(articleId, title, body) {
         },
         data: JSON.stringify({
             "id": 0,
-            // "poster": JSON.parse(sessionStorage.getItem('user')).id,
-            "poster": 1,
+            "poster": JSON.parse(sessionStorage.getItem('user')).id,
+            // "poster": 1,
             "article" : articleId,
             'title': title,
             'body': body,
@@ -281,8 +282,8 @@ function updateComment(articleId, commentId, title, body) {
             "article" : articleId,
             'title' : title,
             'body' : body,
-            // "poster": currentUser.id,
-            "poster": 1,
+            "poster": currentUser.id,
+            // "poster": 1,
             "datetime": new Date()
         }),
         success:
@@ -346,7 +347,7 @@ function displayAllArticles (allArticles) {
                 '<hr>' +
             '</div>');
 
-        if (currentUser !== null && currentUser.id === allArticles[i].poster) {
+        if (currentUser !== null && currentUser.id === allArticles[i].poster.id) {
             $('#delete_article_' + tempid).removeClass('hidden');
             $('#edit_article_' + tempid).removeClass('hidden');
         }
@@ -416,12 +417,12 @@ function displayComments(allArticleComments, articleId) {
             '<h3 class="comment_title" id="comment_title_'+tempArticleCommentId+'">'+ tempCommentTitle + '</h3>' +
             '<h4 class="comment_body" id="comment_body_'+tempArticleCommentId+'">' + tempCommentBody + '</h4>' +
             '<h6>posted by '+tempCommentPoster+'</h6>' +
-            '<span class="label label-danger delete_comment pull-right -hidden" id="delete_comment_'+tempArticleCommentId+'">Delete Comment</span>' +
-            '<span class="label label-warning edit_comment pull-right -hidden" id="edit_comment_'+tempArticleCommentId+'">Edit Comment</span>' +
-            '<span class="label label-info update_comment pull-right -hidden" id="update_comment_'+tempArticleCommentId+'">Save changes</span>' +
+            '<span class="label label-danger delete_comment pull-right hidden" id="delete_comment_'+tempArticleCommentId+'">Delete Comment</span>' +
+            '<span class="label label-warning edit_comment pull-right hidden" id="edit_comment_'+tempArticleCommentId+'">Edit Comment</span>' +
+            '<span class="label label-info update_comment pull-right hidden" id="update_comment_'+tempArticleCommentId+'">Save changes</span>' +
             '<br>');
 
-        if (currentUser !== null && currentUser.id === allArticleComments[i].poster) {
+        if (currentUser !== null && currentUser.id === allArticleComments[i].poster.id) {
             $('#delete_comment_'+tempArticleCommentId).removeClass('hidden');
 
             $('#edit_comment_'+tempArticleCommentId).removeClass('hidden').click(function () {
