@@ -28,6 +28,16 @@ class ArticleController extends FOSRestController
     /**
      * @Rest\Get("/api/article")
      *
+     * @SWG\Response(
+     * response=200,
+     *     description="Returns all articles",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Article::class)
+     *     )
+     * )
+     *
+     * @SWG\Tag(name="Article")
      */
     public function getAllArticles()
     {
@@ -42,6 +52,24 @@ class ArticleController extends FOSRestController
      * @Rest\Get("/api/article/{id}")
      * @param int $id
      * @return Article|View|null|object
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Returns single article",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Article::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="integer",
+     *     description="ID of article to be retreived"
+     * )
+     *
+     * @SWG\Tag(name="Article")
      */
     public function getArticle($id)
     {
@@ -56,6 +84,36 @@ class ArticleController extends FOSRestController
      * @Rest\Post("/api/article")
      * @param Request $request
      * @return View
+     *
+     *  @SWG\Response(
+     * response=200,
+     *     description="Post article",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Article::class)
+     *     )
+     * )
+     *
+     * @SWG\Response(
+     * response=403,
+     *     description="Unathorized",
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="title",
+     *     in="query",
+     *     type="string",
+     *     description="New article title"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="query",
+     *     type="string",
+     *     description="New article body"
+     * )
+     *
+     * @SWG\Tag(name="Article")
      */
     public function postArticle(Request $request)
     {
@@ -93,6 +151,38 @@ class ArticleController extends FOSRestController
      * @Rest\Put("/api/article")
      * @param Request $request
      * @return View
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Edit article",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Article::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="query",
+     *     type="integer",
+     *     description="ID of article to be edited"
+     * )
+     *
+     *  @SWG\Parameter(
+     *     name="title",
+     *     in="query",
+     *     type="string",
+     *     description="New article title"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="query",
+     *     type="string",
+     *     description="New article body"
+     * )
+     *
+     * @SWG\Tag(name="Article")
      */
     public function updateArticle(Request $request)
     {
@@ -131,6 +221,24 @@ class ArticleController extends FOSRestController
      * @Rest\Delete("/api/article/{id}")
      * @param int $id
      * @return View
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Delete article",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Article::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="integer",
+     *     description="ID of article to be deleted"
+     * )
+     *
+     * @SWG\Tag(name="Article")
      */
     public function deleteArticle($id)
     {
@@ -164,6 +272,24 @@ class ArticleController extends FOSRestController
      * @Rest\Get("/api/article/{id}/comment")
      * @param int $id
      * @return View
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Get all comments for an article",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Comment::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="integer",
+     *     description="ID of an article"
+     * )
+     *
+     * @SWG\Tag(name="Comment")
      */
     public function getArticleComments($id)
     {
@@ -179,6 +305,31 @@ class ArticleController extends FOSRestController
      * @param int $aid
      * @param int $cid
      * @return View
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Delete a comment",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Comment::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="aid",
+     *     in="path",
+     *     type="integer",
+     *     description="ID of an article"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="cid",
+     *     in="path",
+     *     type="integer",
+     *     description="ID of a comment to be deleted"
+     * )
+     *
+     * @SWG\Tag(name="Comment")
      */
     public function deleteArticleComment($aid, $cid)
     {
@@ -212,6 +363,38 @@ class ArticleController extends FOSRestController
      * @param int $aid
      * @param Request $request
      * @return Comment|View|null|object
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Post a comment",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Comment::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="aid",
+     *     in="path",
+     *     type="integer",
+     *     description="ID of an article"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="title",
+     *     in="query",
+     *     type="string",
+     *     description="Title of a comment"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="query",
+     *     type="string",
+     *     description="Body of a comment"
+     * )
+     *
+     * @SWG\Tag(name="Comment")
      */
     public function postComment($aid, Request $request)
     {
@@ -251,6 +434,45 @@ class ArticleController extends FOSRestController
      * @param int $aid
      * @param Request $request
      * @return View
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Edit a comment",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Comment::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="aid",
+     *     in="path",
+     *     type="integer",
+     *     description="ID of an article"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="query",
+     *     type="integer",
+     *     description="ID of a comment to be edited"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="title",
+     *     in="query",
+     *     type="string",
+     *     description="Title of a comment"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="query",
+     *     type="string",
+     *     description="Body of a comment"
+     * )
+     *
+     * @SWG\Tag(name="Comment")
      */
     public function updateComment($aid, Request $request)
     {

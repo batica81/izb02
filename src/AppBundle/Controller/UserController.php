@@ -24,6 +24,44 @@ class UserController extends FOSRestController
 
     /**
      * @Rest\Post("/api/user")
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Registers a user",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=User::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="email",
+     *     in="query",
+     *     type="string",
+     *     description="Users e-mail"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="firstName",
+     *     in="query",
+     *     type="string",
+     *     description="Users firstname"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="lastName",
+     *     in="query",
+     *     type="string",
+     *     description="Users lastname"
+     * )
+     * @SWG\Parameter(
+     *     name="pass",
+     *     in="query",
+     *     type="string",
+     *     description="Users password"
+     * )
+     *
+     * @SWG\Tag(name="User")
      */
     public function registerAction(Request $request)
     {
@@ -63,6 +101,17 @@ class UserController extends FOSRestController
 
     /**
      * @Rest\Get("/api/user")
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Retreives authenticated users information",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=User::class)
+     *     )
+     * )
+     *
+     * @SWG\Tag(name="User")
      */
     public function showUser()
     {
@@ -81,6 +130,31 @@ class UserController extends FOSRestController
 
     /**
      * @Rest\Put("/api/user/changepass")
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Change authenticated users password",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=User::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="oldpass",
+     *     in="query",
+     *     type="string",
+     *     description="Users old password"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="newpass",
+     *     in="query",
+     *     type="string",
+     *     description="Users new password"
+     * )
+     *
+     * @SWG\Tag(name="User")
      */
     public function updatePassword(Request $request)
     {
@@ -112,6 +186,31 @@ class UserController extends FOSRestController
 
     /**
      * @Rest\Put("/api/user")
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Change authenticated users details",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=User::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="firstName",
+     *     in="query",
+     *     type="string",
+     *     description="Users new firstname"
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="lastName",
+     *     in="query",
+     *     type="string",
+     *     description="Users new lastname"
+     * )
+     *
+     * @SWG\Tag(name="User")
      */
     public function updateUserDetails(Request $request)
     {
@@ -139,6 +238,24 @@ class UserController extends FOSRestController
 
     /**
      * @Rest\Delete("/api/user/{id}")
+     *
+     * @SWG\Response(
+     * response=200,
+     *     description="Delete authenticated user",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=User::class)
+     *     )
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="string",
+     *     description="Users ID"
+     * )
+     *
+     * @SWG\Tag(name="User")
      */
     public function deleteUser($id)
     {

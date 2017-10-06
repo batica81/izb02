@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class User implements UserInterface
 {
     /**
-     * @var
+     * @var string
      *
      * @Groups({"group2"})
      */
@@ -28,11 +28,19 @@ class User implements UserInterface
     private $role;
 
     /**
-     * @var
+     * @var array
      *
      * @Groups({"group1"})
      */
     private $roles;
+
+
+    /**
+     * @var string
+     *
+     * @Groups({"group1"})
+     */
+    private $username;
 
     /**
      * @var int
