@@ -13,6 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($data["repository"]["id"] == 101808407) {
         echo shell_exec("git pull");
         echo shell_exec("php ../../bin/console cache:clear --env=prod");
+        echo 'done.';
+    } else {
+        echo 'failed';
     }
 }
 //TODO: hmac check for autopull
