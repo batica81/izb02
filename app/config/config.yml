@@ -18,7 +18,7 @@ framework:
     form: ~
     csrf_protection: ~
     validation: { enable_annotations: true }
-    #serializer: { enable_annotations: true }
+    serializer: { enable_annotations: true }
     templating:
         engines: ['twig']
     default_locale: '%locale%'
@@ -101,6 +101,8 @@ nelmio_api_doc:
     routes:
         path_patterns: # an array of regexps
             - ^/api
+            - ^/login_check
+            - ^/logout
 
     documentation:
         info:

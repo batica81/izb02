@@ -22,6 +22,7 @@ use Swagger\Annotations as SWG;
 /**
  * Class ArticleController
  * @package AppBundle\Controller
+ *
  */
 class ArticleController extends FOSRestController
 {

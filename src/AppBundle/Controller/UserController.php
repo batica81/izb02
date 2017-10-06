@@ -158,7 +158,6 @@ class UserController extends FOSRestController
      */
     public function updatePassword(Request $request)
     {
-//        TODO: Popraviti kada proradi hashing
 //        $data = new User;
 //        $oldpass = $request->get('oldpass');
 //        $newpass = $request->get('newpass');
@@ -276,8 +275,5 @@ class UserController extends FOSRestController
     }
 }
 
-//TODO: Cascade delete in mysql
-//TODO: $oldHashedPass
-//TODO: parameter groups in user model
-//TODO: namestiti swagger makar i rucno
-//TODO: srediti bazu i mock data
+//TODO: change password
+//TODO: delete user account, all articles and comments

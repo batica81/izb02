@@ -369,7 +369,7 @@ function displayAllArticles (allArticles) {
     $('.article_delete').each(function() {
         $(this).click(function () {
             res = $(this).attr('id').split("_");
-            if (confirm('Delete this article?')) {
+            if (confirm("Delete this article and all it's coments?")) {
                 deleteArticle(res[2]);
             }
         });
@@ -462,7 +462,7 @@ function showFlash(message) {
 
 // TODO: Frontend input validation
 
-//BONUS TODO:
+//BONUS_TODO:
 // TODO: Gulp minification
 // TODO: Articles frontend pagination
 // TODO: Article page styling

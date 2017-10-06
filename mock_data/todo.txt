@@ -1,4 +1,0 @@
-article sve radi (potrebna autentifikacija)
-comment sve radi (potrebna autentifikacija)
-
-autopull done

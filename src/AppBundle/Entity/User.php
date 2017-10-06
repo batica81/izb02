@@ -4,7 +4,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
+//use Symfony\Component\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * User
@@ -80,19 +84,11 @@ class User implements UserInterface
     /**
      * @var string
      * @Groups({"group2"})
+     * @Exclude
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     private $password;
-
-    /**
-     * @var string
-     * @Groups({"group2"})
-     *
-     * @ORM\Column(name="hashed_password", type="string", length=255, nullable=true)
-     */
-    private $hashedPassword;
-
 
     /**
      * Get id
@@ -200,30 +196,6 @@ class User implements UserInterface
         return $this->password;
     }
 
-    /**
-     * Set hashedPassword
-     *
-     * @param string $hashedPassword
-     *
-     * @return User
-     */
-    public function setHashedPassword($hashedPassword)
-    {
-        $this->hashedPassword = $hashedPassword;
-
-        return $this;
-    }
-
-    /**
-     * Get hashedPassword
-     *
-     * @return string
-     */
-    public function getHashedPassword()
-    {
-        return $this->hashedPassword;
-    }
-
     public function getRole()
     {
         return $this->role;
@@ -252,7 +224,7 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        // systemTODO: Implement eraseCredentials() method.
     }
 
 }
